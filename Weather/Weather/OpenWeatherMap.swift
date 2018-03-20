@@ -8,29 +8,43 @@
 
 import UIKit
 
+protocol OpenWeatherMapDelegate {
+    func updateWeatherInfo()
+}
+
 class OpenWeatherMap {
-    var nameCity: String
-    var temperature: Float
-    var description: String
-    var currentTime: String?
-    var icon: UIImage?
+    let weatherUrl = "http://api.openweathermap.org/data/2.5/weather"
     
-    init(weatherJson: Dictionary<String, Any>) {
-        nameCity = weatherJson["name"] as! String
-        
-        let main = weatherJson["main"] as! Dictionary<String, Any>
-        temperature = main["temp"] as! Float
-        temperature -= 273.15
-        
-        let weather = weatherJson["weather"] as! [Dictionary<String, Any>]
-        let zeroValue = weather[0]
-        description = zeroValue["description"] as! String
-        
-        let dtValue = weatherJson["dt"] as! Int
-        currentTime = timeFromUnix(unixTime: dtValue)
-        
-        let stringIcon = zeroValue["icon"] as! String
-        icon = wetherIcon(stringIcon: stringIcon)
+    var nameCity: String?
+    var temperature: Float?
+    /*var description: String
+    var currentTime: String?
+    var icon: UIImage?*/
+    
+    var delegate: OpenWeatherMapDelegate!
+    
+    func getWeatherFor(_ city: String) {
+        let parameters = ["q" : city, "appid" : "4e63f48bb2d090d7fb7d80f6447ace6a"]
+        request(weatherUrl, method: .get, parameters: parameters).responseJSON { (response) in
+            if response.error != nil {
+            
+            } else {
+                let weatherJson = JSON(response.value!)
+                
+                if let name = weatherJson["name"].string {
+                    self.nameCity = name
+                }
+                
+                if let temperature = weatherJson["main"]["temp"].float {
+                    self.temperature = temperature
+                    self.temperature! -= 273.15
+                }
+                
+                DispatchQueue.main.async {
+                    self.delegate.updateWeatherInfo()
+                }
+            }
+        }
     }
     
     func timeFromUnix(unixTime: Int) -> String {
@@ -71,5 +85,4 @@ class OpenWeatherMap {
         let iconImage = UIImage(named: imageName)
         return iconImage!
     }
-   
 }

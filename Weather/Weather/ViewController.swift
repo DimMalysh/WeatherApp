@@ -8,41 +8,50 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, OpenWeatherMapDelegate {
     @IBOutlet weak var iconImageView: UIImageView!
-    let url = "http://api.openweathermap.org/data/2.5/weather?q=London&appid=4e63f48bb2d090d7fb7d80f6447ace6a"
+    
+    var openWeather = OpenWeatherMap()
+    
+    @IBAction func cityButtonTapped(_ sender: UIBarButtonItem) {
+        displayCity()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    
-        let stringURL = URL(string: url)
-        let session = URLSession.shared
-        let task = session.downloadTask(with: stringURL!) { (location: URL?, responce: URLResponse?, error: Error?) in
-            let weatherData = try? Data(contentsOf: stringURL!)
-            let weatherJson = try? JSONSerialization.jsonObject(with: weatherData!, options: []) as! Dictionary<String, Any>
-            let weather = OpenWeatherMap(weatherJson: weatherJson!)
-            
-            if error == nil {
-                print(weather.nameCity)
-                print(weather.temperature)
-                print(weather.description)
-                print(weather.currentTime!)
-                print(weather.icon!)
-                
-                DispatchQueue.main.async {
-                    self.iconImageView.image = weather.icon!
-                }
-            } else {
-                print("Error: \(error!)")
-            }
-        }
         
-        task.resume()
+        self.openWeather.delegate = self
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func displayCity() {
+        let alert = UIAlertController(title: "City", message: "Enter name city", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        alert.addAction(cancel)
+        
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (action) in
+            if let textField = alert.textFields?.first {
+                self.openWeather.getWeatherFor(textField.text!)
+            }
+        }
+        alert.addAction(ok)
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "City name"
+        }
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: OpenWeatherMapDelegate
+    func updateWeatherInfo() {
+        print(openWeather.nameCity as Any)
+        print(openWeather.temperature as Any)
     }
 }
