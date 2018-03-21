@@ -11,10 +11,16 @@ import CoreLocation
 
 class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var speedWindLabel: UILabel!
+    @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     let locationManager = CLLocationManager()
-    var openWeather = OpenWeatherMap()
     let hud = MBProgressHUD()
+    var openWeather = OpenWeatherMap()
     
     @IBAction func cityButtonTapped(_ sender: UIBarButtonItem) {
         displayCity()
@@ -24,6 +30,11 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        //Set background
+        let background = UIImage(named: "background")
+        self.view.backgroundColor = UIColor(patternImage: background!)
+        
+        //Set setup
         self.openWeather.delegate = self
         locationManager.delegate = self
         
@@ -74,11 +85,16 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
             
             //Get city name
             let cityName = weatherJson["name"].stringValue
-            print(cityName)
+            self.cityNameLabel.text = "\(cityName), \(country)"
+            
+            //Get time
+            let time = weatherJson["dt"].intValue
+            let timeToString = openWeather.timeFromUnix(unixTime: time)
+            self.timeLabel.text = "At \(timeToString) it is"
             
             //Get counvert temperature
             let temperature = openWeather.convertTemperature(country: country, temperature: temperatureResult)
-            print(temperature)
+            self.temperatureLabel.text = "\(temperature)"
             
             //Get icon
             let weather = weatherJson["weather"][0]
@@ -86,6 +102,18 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
             let nightTime = openWeather.isTimeNight(weatherJson: weatherJson)
             let icon = openWeather.updateWeatherIcon(condition: condition, nightTime: nightTime)
             self.iconImageView.image = icon
+            
+            //Get description
+            let description = weather["description"].stringValue
+            self.descriptionLabel.text = description
+            
+            //Get speed wind
+            let speedWind = weatherJson["wind"]["speed"].doubleValue
+            self.speedWindLabel.text = "\(speedWind)"
+            
+            //Get humidity
+            let humidity = weatherJson["main"]["humidity"].intValue
+            self.humidityLabel.text = "\(humidity)"
             
         } else {
             print("Unable load weather info")

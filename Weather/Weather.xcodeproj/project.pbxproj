@@ -33,6 +33,7 @@
 		04D6B93420614FC90086FC5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D6B93220614FC90086FC5F /* LaunchScreen.storyboard */; };
 		04D6B93C206175530086FC5F /* OpenWeatherMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6B93B206175530086FC5F /* OpenWeatherMap.swift */; };
 		04F4181D2062CF9A004A3456 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F4181C2062CF9A004A3456 /* CoreLocation.framework */; };
+		04F418212062EDD5004A3456 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F418202062EDD5004A3456 /* background.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		04D6B93B206175530086FC5F /* OpenWeatherMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenWeatherMap.swift; sourceTree = "<group>"; };
 		04F4181A2062B2F1004A3456 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		04F4181C2062CF9A004A3456 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		04F418202062EDD5004A3456 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				04D6B93020614FC90086FC5F /* Assets.xcassets */,
 				04D6B93220614FC90086FC5F /* LaunchScreen.storyboard */,
 				04D6B93520614FCA0086FC5F /* Info.plist */,
+				04F418202062EDD5004A3456 /* background.png */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04D6B93420614FC90086FC5F /* LaunchScreen.storyboard in Resources */,
+				04F418212062EDD5004A3456 /* background.png in Resources */,
 				04D6B93120614FC90086FC5F /* Assets.xcassets in Resources */,
 				04D6B92F20614FC90086FC5F /* Main.storyboard in Resources */,
 			);
