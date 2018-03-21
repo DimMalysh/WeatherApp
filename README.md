@@ -1,2 +1,2 @@
 # WeatherApp by Konstantin Kokorin
-Used frameworks Alamofire, SwiftyJSON and MBProgressHUD.
+Used frameworks Alamofire, SwiftyJSON, MBProgressHUD and CoreLocation.
