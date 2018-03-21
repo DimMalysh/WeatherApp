@@ -32,6 +32,7 @@
 		04D6B93120614FC90086FC5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04D6B93020614FC90086FC5F /* Assets.xcassets */; };
 		04D6B93420614FC90086FC5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D6B93220614FC90086FC5F /* LaunchScreen.storyboard */; };
 		04D6B93C206175530086FC5F /* OpenWeatherMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6B93B206175530086FC5F /* OpenWeatherMap.swift */; };
+		04F4181D2062CF9A004A3456 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F4181C2062CF9A004A3456 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		04D6B93320614FC90086FC5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04D6B93520614FCA0086FC5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04D6B93B206175530086FC5F /* OpenWeatherMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenWeatherMap.swift; sourceTree = "<group>"; };
+		04F4181A2062B2F1004A3456 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		04F4181C2062CF9A004A3456 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F4181D2062CF9A004A3456 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				04535D382061AC8500E69B11 /* Alamofire */,
+				04F4181A2062B2F1004A3456 /* BridgingHeader.h */,
 				04535D4C2061AC8500E69B11 /* MBProgressHUD.h */,
 				04535D4D2061AC8500E69B11 /* MBProgressHUD.m */,
 				04535D4E2061AC8500E69B11 /* SwiftyJSON.h */,
@@ -121,6 +126,7 @@
 				04D6B92820614FC90086FC5F /* Weather */,
 				04535D372061AC8500E69B11 /* Helpers */,
 				04D6B92720614FC90086FC5F /* Products */,
+				04F4181B2062CF99004A3456 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,6 +150,14 @@
 				04D6B93520614FCA0086FC5F /* Info.plist */,
 			);
 			path = Weather;
+			sourceTree = "<group>";
+		};
+		04F4181B2062CF99004A3456 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04F4181C2062CF9A004A3456 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,6 +380,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dimmalysh.Weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DISABLE_SAFETY_CHECKS = NO;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = Helpers/BridgingHeader.h;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -379,6 +395,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dimmalysh.Weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DISABLE_SAFETY_CHECKS = NO;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = Helpers/BridgingHeader.h;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
