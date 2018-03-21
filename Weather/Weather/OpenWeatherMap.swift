@@ -15,7 +15,7 @@ protocol OpenWeatherMapDelegate {
 }
 
 class OpenWeatherMap {
-    let weatherUrl = "http://api.openweathermap.org/data/2.5/weather"
+    let weatherUrl = "http://api.openweathermap.org/data/2.5/forecast"
     
     var delegate: OpenWeatherMapDelegate!
     
@@ -53,7 +53,7 @@ class OpenWeatherMap {
         return dateFormatter.string(from: weatherDate)
     }
     
-    func updateWeatherIcon(condition: Int, nightTime: Bool) -> UIImage {
+    func updateWeatherIcon(condition: Int, nightTime: Bool, index: Int) -> UIImage {
         var imageName: String
         
         switch (condition, nightTime) {
@@ -117,7 +117,11 @@ class OpenWeatherMap {
         }
     }
     
-    func isTimeNight(weatherJson: JSON) -> Bool {
+    func isTimeNight(icon: String) -> Bool {
+        return icon.range(of: "n") != nil
+    }
+    
+    /*func isTimeNight(weatherJson: JSON) -> Bool {
         var nightTime = false
         let nowTime = Date.timeIntervalBetween1970AndReferenceDate
         let sunrise = weatherJson["sys"]["sunrise"].doubleValue
@@ -128,5 +132,5 @@ class OpenWeatherMap {
         }
         
         return nightTime
-    }
+    }*/
 }
