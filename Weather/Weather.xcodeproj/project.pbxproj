@@ -26,6 +26,7 @@
 		04535D602061AC8500E69B11 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04535D4B2061AC8500E69B11 /* Validation.swift */; };
 		04535D612061AC8500E69B11 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 04535D4D2061AC8500E69B11 /* MBProgressHUD.m */; };
 		04535D622061AC8500E69B11 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04535D4F2061AC8500E69B11 /* SwiftyJSON.swift */; };
+		04606DB42063BB8A008A1783 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04606DB32063BB8A008A1783 /* ForecastViewController.swift */; };
 		04D6B92A20614FC90086FC5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6B92920614FC90086FC5F /* AppDelegate.swift */; };
 		04D6B92C20614FC90086FC5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D6B92B20614FC90086FC5F /* ViewController.swift */; };
 		04D6B92F20614FC90086FC5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D6B92D20614FC90086FC5F /* Main.storyboard */; };
@@ -59,6 +60,7 @@
 		04535D4D2061AC8500E69B11 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		04535D4E2061AC8500E69B11 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
 		04535D4F2061AC8500E69B11 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		04606DB32063BB8A008A1783 /* ForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		04D6B92620614FC90086FC5F /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D6B92920614FC90086FC5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D6B92B20614FC90086FC5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				04D6B92920614FC90086FC5F /* AppDelegate.swift */,
 				04D6B92B20614FC90086FC5F /* ViewController.swift */,
+				04606DB32063BB8A008A1783 /* ForecastViewController.swift */,
 				04D6B93B206175530086FC5F /* OpenWeatherMap.swift */,
 				04D6B92D20614FC90086FC5F /* Main.storyboard */,
 				04D6B93020614FC90086FC5F /* Assets.xcassets */,
@@ -246,6 +249,7 @@
 				04535D582061AC8500E69B11 /* Response.swift in Sources */,
 				04535D572061AC8500E69B11 /* Request.swift in Sources */,
 				04535D552061AC8500E69B11 /* Notifications.swift in Sources */,
+				04606DB42063BB8A008A1783 /* ForecastViewController.swift in Sources */,
 				04535D532061AC8500E69B11 /* MultipartFormData.swift in Sources */,
 				04535D512061AC8500E69B11 /* Alamofire.swift in Sources */,
 				04535D502061AC8500E69B11 /* AFError.swift in Sources */,

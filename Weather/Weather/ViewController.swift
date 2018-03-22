@@ -18,17 +18,35 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    var time1Text: String!
+    var time2Text: String!
+    var time3Text: String!
+    var time4Text: String!
+    
+    var icon1Image: UIImage!
+    var icon2Image: UIImage!
+    var icon3Image: UIImage!
+    var icon4Image: UIImage!
+    
+    var temperature1Text: String!
+    var temperature2Text: String!
+    var temperature3Text: String!
+    var temperature4Text: String!
+    
     let locationManager = CLLocationManager()
     let hud = MBProgressHUD()
     var openWeather = OpenWeatherMap()
     
-    @IBAction func cityButtonTapped(_ sender: UIBarButtonItem) {
+    @IBAction func selectCityAction(_ sender: UIBarButtonItem) {
         displayCity()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //Go out back button
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
         //Set background
         let background = UIImage(named: "background")
@@ -102,8 +120,8 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
             let condition = weather["id"].intValue
             let iconString = weather["icon"].stringValue
             let nightTime = openWeather.isTimeNight(icon: iconString)
-            let icon = openWeather.updateWeatherIcon(condition: condition, nightTime: nightTime, index: 0)
-            self.iconImageView.image = icon
+            openWeather.updateWeatherIcon(condition: condition, nightTime: nightTime, index: 0, weatherIcon: self.updateIconList)
+            //self.iconImageView.image = icon
             
             //Get description
             let description = weather["description"].stringValue
@@ -123,10 +141,10 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
                     let temperature = openWeather.convertTemperature(country: country, temperature: temperatureResult)
                     
                     switch index {
-                    case 1: print(temperature)
-                    case 2: print(temperature)
-                    case 3: print(temperature)
-                    case 4: print(temperature)
+                    case 1: temperature1Text = "\(temperature)"
+                    case 2: temperature2Text = "\(temperature)"
+                    case 3: temperature3Text = "\(temperature)"
+                    case 4: temperature4Text = "\(temperature)"
                     default: break
                     }
                     
@@ -135,10 +153,10 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
                     let timeToString = openWeather.timeFromUnix(unixTime: forecastTime)
                     
                     switch index {
-                    case 1: print(timeToString)
-                    case 2: print(timeToString)
-                    case 3: print(timeToString)
-                    case 4: print(timeToString)
+                    case 1: time1Text = "\(timeToString)"
+                    case 2: time2Text = "\(timeToString)"
+                    case 3: time3Text = "\(timeToString)"
+                    case 4: time4Text = "\(timeToString)"
                     default: break
                     }
                     
@@ -146,13 +164,25 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
                     let weather = weatherJson["list"][index]["weather"][0]
                     let iconString = weather["icon"].stringValue
                     let nightTime = openWeather.isTimeNight(icon: iconString)
-                    let icon = openWeather.updateWeatherIcon(condition: condition, nightTime: nightTime, index: index)
-                    print(icon)
+                    openWeather.updateWeatherIcon(condition: condition, nightTime: nightTime, index: index, weatherIcon: self.updateIconList)
+                } else {
+                    continue
                 }
             }
             
         } else {
             print("Unable load weather info")
+        }
+    }
+    
+    func updateIconList(_ index: Int, _ name: String) {
+        switch index {
+        case 0: self.iconImageView.image = UIImage(named: name)
+        case 1: self.icon1Image = UIImage(named: name)
+        case 2: self.icon2Image = UIImage(named: name)
+        case 3: self.icon3Image = UIImage(named: name)
+        case 4: self.icon4Image = UIImage(named: name)
+        default: break
         }
     }
     
@@ -164,6 +194,7 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
         networkController.addAction(ok)
         
         present(networkController, animated: true, completion: nil)
+        hud.hide(animated: true)
     }
     
     //MARK: - CLLocationManagerDelegate
@@ -186,5 +217,27 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
         print("Can't get your location")
+    }
+    
+    //MARK: - Prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "moreInfo" {
+            let forecastViewController = segue.destination as! ForecastViewController
+            
+            forecastViewController.time1Text = self.time1Text
+            forecastViewController.time2Text = self.time2Text
+            forecastViewController.time3Text = self.time3Text
+            forecastViewController.time4Text = self.time4Text
+            
+            forecastViewController.icon1Image = self.icon1Image
+            forecastViewController.icon2Image = self.icon2Image
+            forecastViewController.icon3Image = self.icon3Image
+            forecastViewController.icon4Image = self.icon4Image
+            
+            forecastViewController.temperature1Text = self.temperature1Text
+            forecastViewController.temperature2Text = self.temperature2Text
+            forecastViewController.temperature3Text = self.temperature3Text
+            forecastViewController.temperature4Text = self.temperature4Text
+        }
     }
 }
