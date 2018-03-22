@@ -18,20 +18,9 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    var time1Text: String!
-    var time2Text: String!
-    var time3Text: String!
-    var time4Text: String!
-    
-    var icon1Image: UIImage!
-    var icon2Image: UIImage!
-    var icon3Image: UIImage!
-    var icon4Image: UIImage!
-    
-    var temperature1Text: String!
-    var temperature2Text: String!
-    var temperature3Text: String!
-    var temperature4Text: String!
+    var timeStrings = [String(), String(), String(), String()]
+    var iconImages = [UIImage(), UIImage(), UIImage(), UIImage()]
+    var temperatureStrings = [String(), String(), String(), String()]
     
     let locationManager = CLLocationManager()
     let hud = MBProgressHUD()
@@ -140,25 +129,13 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
                     //Get counvert temperature
                     let temperature = openWeather.convertTemperature(country: country, temperature: temperatureResult)
                     
-                    switch index {
-                    case 1: temperature1Text = "\(temperature)"
-                    case 2: temperature2Text = "\(temperature)"
-                    case 3: temperature3Text = "\(temperature)"
-                    case 4: temperature4Text = "\(temperature)"
-                    default: break
-                    }
+                    temperatureStrings[index - 1] = "\(temperature)"
                     
                     //Get forecast time
                     let forecastTime = weatherJson["list"][index]["dt"].intValue
-                    let timeToString = openWeather.timeFromUnix(unixTime: forecastTime)
+                    let timeString = openWeather.timeFromUnix(unixTime: forecastTime)
                     
-                    switch index {
-                    case 1: time1Text = "\(timeToString)"
-                    case 2: time2Text = "\(timeToString)"
-                    case 3: time3Text = "\(timeToString)"
-                    case 4: time4Text = "\(timeToString)"
-                    default: break
-                    }
+                    timeStrings[index - 1] = "\(timeString)"
                     
                     //Get icon
                     let weather = weatherJson["list"][index]["weather"][0]
@@ -178,10 +155,7 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
     func updateIconList(_ index: Int, _ name: String) {
         switch index {
         case 0: self.iconImageView.image = UIImage(named: name)
-        case 1: self.icon1Image = UIImage(named: name)
-        case 2: self.icon2Image = UIImage(named: name)
-        case 3: self.icon3Image = UIImage(named: name)
-        case 4: self.icon4Image = UIImage(named: name)
+        case 1...4: iconImages[index - 1] = UIImage(named: name)!
         default: break
         }
     }
@@ -224,20 +198,23 @@ class ViewController: UIViewController, OpenWeatherMapDelegate, CLLocationManage
         if segue.identifier == "moreInfo" {
             let forecastViewController = segue.destination as! ForecastViewController
             
-            forecastViewController.time1Text = self.time1Text
-            forecastViewController.time2Text = self.time2Text
-            forecastViewController.time3Text = self.time3Text
-            forecastViewController.time4Text = self.time4Text
+            var index = 0
+            for timeString in timeStrings {
+                forecastViewController.timeStrings[index] = timeString
+                index += 1
+            }
             
-            forecastViewController.icon1Image = self.icon1Image
-            forecastViewController.icon2Image = self.icon2Image
-            forecastViewController.icon3Image = self.icon3Image
-            forecastViewController.icon4Image = self.icon4Image
+            index = 0
+            for iconImage in iconImages {
+                forecastViewController.iconImages[index] = iconImage
+                index += 1
+            }
             
-            forecastViewController.temperature1Text = self.temperature1Text
-            forecastViewController.temperature2Text = self.temperature2Text
-            forecastViewController.temperature3Text = self.temperature3Text
-            forecastViewController.temperature4Text = self.temperature4Text
+            index = 0
+            for temperatureString in temperatureStrings {
+                forecastViewController.temperatureStrings[index] = temperatureString
+                index += 1
+            }
         }
     }
 }

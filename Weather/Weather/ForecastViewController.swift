@@ -9,38 +9,14 @@
 import UIKit
 
 class ForecastViewController: UIViewController {
-
-    @IBOutlet weak var time1Label: UILabel!
-    @IBOutlet weak var time2Label: UILabel!
-    @IBOutlet weak var time3Label: UILabel!
-    @IBOutlet weak var time4Label: UILabel!
-    
-    @IBOutlet weak var icon1View: UIImageView!
-    @IBOutlet weak var icon2View: UIImageView!
-    @IBOutlet weak var icon3View: UIImageView!
-    @IBOutlet weak var icon4View: UIImageView!
-
-    @IBOutlet weak var temperature1Label: UILabel!
-    @IBOutlet weak var temperature2Label: UILabel!
-    @IBOutlet weak var temperature3Label: UILabel!
-    @IBOutlet weak var temperature4Label: UILabel!
-    
+    @IBOutlet var timeLabels: [UILabel]!
+    @IBOutlet var iconViews: [UIImageView]!
+    @IBOutlet var temperatureLabels: [UILabel]!
     @IBOutlet weak var subview: UIView!
     
-    var time1Text: String!
-    var time2Text: String!
-    var time3Text: String!
-    var time4Text: String!
-    
-    var icon1Image: UIImage!
-    var icon2Image: UIImage!
-    var icon3Image: UIImage!
-    var icon4Image: UIImage!
-    
-    var temperature1Text: String!
-    var temperature2Text: String!
-    var temperature3Text: String!
-    var temperature4Text: String!
+    var timeStrings = [String(), String(), String(), String()]
+    var iconImages = [UIImage(), UIImage(), UIImage(), UIImage()]
+    var temperatureStrings = [String(), String(), String(), String()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,21 +36,29 @@ class ForecastViewController: UIViewController {
             let translate = CGAffineTransform(translationX: 0.0, y: 0.0)
             self.subview.transform = scale.concatenating(translate)
         }, completion: nil)
+
+        //Sort collections by tag
+        timeLabels.sort { $0.tag < $1.tag }
+        iconViews.sort { $0.tag < $1.tag }
+        temperatureLabels.sort { $0.tag < $1.tag }
+ 
+        var index = 0
+        for timeString in timeStrings {
+            timeLabels[index].text = timeString
+            index += 1
+        }
         
-        time1Label.text = time1Text
-        time2Label.text = time2Text
-        time3Label.text = time3Text
-        time4Label.text = time4Text
+        index = 0
+        for iconImage in iconImages {
+            iconViews[index].image = iconImage
+            index += 1
+        }
         
-        icon1View.image = icon1Image
-        icon2View.image = icon2Image
-        icon3View.image = icon3Image
-        icon4View.image = icon4Image
-        
-        temperature1Label.text = temperature1Text
-        temperature2Label.text = temperature2Text
-        temperature3Label.text = temperature3Text
-        temperature4Label.text = temperature4Text
+        index = 0
+        for temperatureString in temperatureStrings {
+            temperatureLabels[index].text = temperatureString
+            index += 1
+        }
     }
 
     override func didReceiveMemoryWarning() {
