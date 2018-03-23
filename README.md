@@ -1,2 +1,3 @@
 # WeatherApp by Konstantin Kokorin
-Using frameworks Alamofire, SwiftyJSON, MBProgressHUD and CoreLocation.
+Create a Weather application using the frameworks: 
+Alamofire, SwiftyJSON, MBProgressHUD and CoreLocation.
